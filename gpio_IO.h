@@ -2,6 +2,9 @@
 #ifndef GPIO_IO_H
 #define GPIO_IO_H
 
+//1でデバッグを有効にする
+#define DEBUG 0
+
 #include <wiringPi.h>  //wiringPiをインストールする必要あり
 
 void initialize_gpio(int input_bgn, int input_end, int output_bgn, int output_end) {
@@ -13,6 +16,9 @@ void initialize_gpio(int input_bgn, int input_end, int output_bgn, int output_en
   for(int i = output_bgn; i <= output_end; i++) {
     pinMode(i, OUTPUT);
   }
+  //ウォッチドッグ機能　プログラム実行中はGPIO26をHIGHに
+  pinMode(26, OUTPUT);
+  digitalWrite(26, HIGH);
 }
 
 //INPUT設定のGPIOからHIGH/LOWを読む
@@ -20,7 +26,9 @@ void read_gpio(unsigned long* data, int input_bgn, int input_end, int gpio_bgn) 
   *data = 0;
   for(int i = input_bgn; i <= input_end; i++) {
     unsigned long status = digitalRead(i);
-    printf("status of GPIO %2d is %lu\n", i, status);
+    if(DEBUG) {
+      printf("status of GPIO %2d is %lu\n", i, status);
+    }
     for(int j = i; j > gpio_bgn; j--) { 
       status = status << 1;
     }
@@ -35,7 +43,9 @@ void write_gpio(unsigned long* data, int output_bgn, int output_end, int gpio_bg
     for(int j = i; j > gpio_bgn; j--) { 
       status = status << 1;
     }
-    printf("writing %32lu to  GPIO %2d\n", (*data & status), i);
+    if(DEBUG) {
+      printf("writing %32lu to  GPIO %2d\n", (*data & status), i);
+    }
     digitalWrite(i, *data & status);
   }
 }

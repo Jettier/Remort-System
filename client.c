@@ -53,8 +53,8 @@ int main(int argc, char** argv)
   initialize_gpio(GPIO_INPUT_BGN, GPIO_INPUT_END, GPIO_OUTPUT_BGN, GPIO_OUTPUT_END);
 
   while(1) {
-    for(int i = 0; i < 50; i++) { printf("-"); }
-    printf("\n");
+    //for(int i = 0; i < 50; i++) { printf("-"); }
+    //printf("\n");
 
     // GPIOの状態を取得
     read_gpio(&buf, GPIO_INPUT_BGN, GPIO_INPUT_END, GPIO_OUTPUT_BGN);
@@ -67,9 +67,6 @@ int main(int argc, char** argv)
 
     // GPIOへデータを書き込み
     write_gpio(&buf, GPIO_OUTPUT_BGN, GPIO_OUTPUT_END, GPIO_OUTPUT_BGN);
-
-    // 受信データの出力
-    //printf("Received : %32lu\n", buf);
 
     usleep(100000);
   }

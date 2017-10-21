@@ -81,10 +81,9 @@ int main(int argc, char** argv) {
   // GPIO初期化
   initialize_gpio(GPIO_INPUT_BGN, GPIO_INPUT_END, GPIO_OUTPUT_BGN, GPIO_OUTPUT_END);
 
-
   while(1) {
-    for(int i = 0; i < 50; i++) { printf("-"); }
-    printf("\n");
+    //for(int i = 0; i < 50; i++) { printf("-"); }
+    //printf("\n");
 
     // パケット受信。バッファを空にする。
     receive_message(acc_sd, &buf);
