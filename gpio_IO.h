@@ -16,9 +16,6 @@ void initialize_gpio(int input_bgn, int input_end, int output_bgn, int output_en
   for(int i = output_bgn; i <= output_end; i++) {
     pinMode(i, OUTPUT);
   }
-  //ウォッチドッグ機能　プログラム実行中はGPIO26をHIGHに
-  pinMode(26, OUTPUT);
-  digitalWrite(26, HIGH);
 }
 
 //INPUT設定のGPIOからHIGH/LOWを読む
